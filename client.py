@@ -36,9 +36,11 @@ if len(sys.argv) == 3:
 
 
     print 'Recibido -- ', data
-    if Metodo == 'INVITE':
-        LINE = 'ACK sip:' + IP_Puerto[0] + ' SIP/2.0\r\n\r\n'
-        my_socket.send(LINE)
+    Mensajes = data.split(' ')
+    if len(Mensajes) == 7:
+        if Mensajes[1] == '100' and Mensajes[3] == '180' and Mensajes[5]== '200' and Metodo == 'INVITE':
+            LINE = 'ACK sip:' + IP_Puerto[0] + ' SIP/2.0\r\n\r\n'
+            my_socket.send(LINE)
 
     # Cerramos todo
     my_socket.close()
