@@ -29,9 +29,10 @@ class EchoHandler(SocketServer.DatagramRequestHandler):
                 Envio += 'SIP/2.0 200 OK\r\n\r\n'
                 self.wfile.write(Envio)
             elif Metodo == 'ACK':
-                print 'OLALLA ACK'
+                print 'RTP......'
             elif Metodo == 'BYE':
-                print 'OLALLA BYE'
+                Envio = 'SIP/2.0 200 OK\r\n\r\n'
+                self.wfile.write(Envio)
 
             # Si no hay más líneas salimos del bucle infinito
             
