@@ -33,21 +33,21 @@ class EchoHandler(SocketServer.DatagramRequestHandler):
                     print "Enviando: SIP/2.0 405 Method Not Allowed"
                     self.wfile.write('SIP/2.0 405 Method Not Allowed\r\n')
                     break
-            if METHOD == 'INVITE'
-                print "Enviando: SIP/2.0 100 Trying"
-                self.wfile.write('SIP/2.0 100 Trying\r\n')
-                print "Enviando: SIP/2.0 180 Ring"
-                self.wfile.write('SIP/2.0 180 Ring\r\n')
-                print "Enviando: SIP/2.0 200 OK"
-                self.wfile.write('SIP/2.0 200 OK\r\n')
-            elif METHOD == 'ACK':
-                # aEjecutar es un string con lo que se ha de ejecutar en la shell
-                aEjecutar = 'mp32rtp -i 127.0.0.1 -p 23032 < ' + SONG
-                print "Vamos a ejecutar", aEjecutar
-                os.system(aEjecutar)
-            elif METHOD == 'BYE':
-                print "Enviando: SIP/2.0 200 OK"
-                self.wfile.write('SIP/2.0 200 OK\r\n')
+                if METHOD == 'INVITE'
+                    print "Enviando: SIP/2.0 100 Trying"
+                    self.wfile.write('SIP/2.0 100 Trying\r\n')
+                    print "Enviando: SIP/2.0 180 Ring"
+                    self.wfile.write('SIP/2.0 180 Ring\r\n')
+                    print "Enviando: SIP/2.0 200 OK"
+                    self.wfile.write('SIP/2.0 200 OK\r\n')
+                elif METHOD == 'ACK':
+                    # aEjecutar es un string con lo que se ha de ejecutar en la shell
+                    aEjecutar = 'mp32rtp -i 127.0.0.1 -p 23032 < ' + SONG
+                    print "Vamos a ejecutar", aEjecutar
+                    os.system(aEjecutar)
+                elif METHOD == 'BYE':
+                    print "Enviando: SIP/2.0 200 OK"
+                    self.wfile.write('SIP/2.0 200 OK\r\n')
 
 
 if __name__ == "__main__":
