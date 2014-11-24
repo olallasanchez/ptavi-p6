@@ -10,7 +10,7 @@ import sys
 # Cliente UDP simple.
 
 # Dirección IP del servidor.
-try: 
+try:
     METHOD = sys.argv[1]
     NAME = sys.argv[2].split('@')[0]
     SERVER = sys.argv[2].split('@')[1].split(':')[0]
