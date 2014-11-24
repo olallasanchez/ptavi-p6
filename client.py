@@ -13,7 +13,7 @@ import sys
 try: 
     METHOD = sys.argv[1]
     NAME = sys.argv[2].split('@')[0]
-    SERVER = sys.argv[2].spñit('@')[1].split(':')[0]
+    SERVER = sys.argv[2].split('@')[1].split(':')[0]
     PORT = sys.argv[2].split('@')[1].split(':')[1]
 except IndexError:
     print('Usage: python client.py method receiver@IP:SIPport')
@@ -39,7 +39,7 @@ except:
     raise SystemExit
 
 print 'Recibido -- ', data
-print "Terminando socket..."
+LISTATEXTO = data.split('\r\n')
 if METHOD == 'INVITE':
     if LISTATEXTO[2] == 'SIP/2.0 OK':
         METHOD = 'ACK'
@@ -47,6 +47,7 @@ if METHOD == 'INVITE':
         print ('enviando: ' + LINE)
         my_socket.send(LINE + '\r\n')
 
+print "Terminando socket..."
 
 # Cerramos todo
 my_socket.close()
