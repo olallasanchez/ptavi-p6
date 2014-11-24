@@ -9,6 +9,7 @@ import sys
 #import os.path
 import os
 
+
 class EchoHandler(SocketServer.DatagramRequestHandler):
     """
     Echo server class
@@ -31,8 +32,9 @@ class EchoHandler(SocketServer.DatagramRequestHandler):
                 self.wfile.write(Envio)
             elif Metodo == 'ACK':
                 print 'RTP......'
-                # aEjecutar es un string con lo que se ha de ejecutar en la shell
-                aEjecutar = './mp32rtp -i 127.0.0.1 -p 23032 < ' + sys.argv[3]
+                #aEjecutar es un string con lo que se ejecuta en la shell
+                aEjecutar = './mp32rtp -i 127.0.0.1 -p 23032 < '
+                aEjecutar += sys.argv[3]
                 print "Vamos a ejecutar", aEjecutar
                 os.system('chmod 755 mp32rtp')
                 os.system(aEjecutar)
