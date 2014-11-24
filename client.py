@@ -31,16 +31,18 @@ if len(sys.argv) == 3:
         data = my_socket.recv(1024)
         print "Enviando: " + LINE
     except socket.error:
-        print 'Error: No server listening at ' + Correo_Trocea[1] + ' port ' + IP_Puerto[1]
+        Texto = 'Error: No server listening at '
+        Texto += Correo_Trocea[1] + ' port ' + IP_Puerto[1]
+        print Texto
         raise SystemExit
-
 
     print 'Recibido -- ', data
     Mensajes = data.split(' ')
     if len(Mensajes) == 7:
-        if Mensajes[1] == '100' and Mensajes[3] == '180' and Mensajes[5]== '200' and Metodo == 'INVITE':
-            LINE = 'ACK sip:' + IP_Puerto[0] + ' SIP/2.0\r\n\r\n'
-            my_socket.send(LINE)
+        if Mensajes[1] == '100' and Mensajes[3] == '180':
+            if Mensajes[5] == '200' and Metodo == 'INVITE':
+                LINE = 'ACK sip:' + IP_Puerto[0] + ' SIP/2.0\r\n\r\n'
+                my_socket.send(LINE)
 
     # Cerramos todo
     my_socket.close()
