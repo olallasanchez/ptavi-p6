@@ -19,6 +19,7 @@ class EchoHandler(SocketServer.DatagramRequestHandler):
         self.wfile.write("Hemos recibido tu peticion")
         while 1:
             # Leyendo línea a línea lo que nos envía el cliente
+            METHODLIST = ['INVITE', 'ACK', 'BYE']
             line = self.rfile.read()
             print "El cliente nos manda " + line
 
@@ -33,7 +34,7 @@ class EchoHandler(SocketServer.DatagramRequestHandler):
                     print "Enviando: SIP/2.0 405 Method Not Allowed"
                     self.wfile.write('SIP/2.0 405 Method Not Allowed\r\n')
                     break
-                if METHOD == 'INVITE'
+                if METHOD == 'INVITE':
                     print "Enviando: SIP/2.0 100 Trying"
                     self.wfile.write('SIP/2.0 100 Trying\r\n')
                     print "Enviando: SIP/2.0 180 Ring"
@@ -52,12 +53,14 @@ class EchoHandler(SocketServer.DatagramRequestHandler):
 
 if __name__ == "__main__":
 
-    METHODLIST = ['INVITE', 'ACK', 'BYE']
+
     try: 
         IP = sys.argv[1]
-        PORT = sys.arg[2]
+        PORT = sys.argv[2]
         SONG = sys.argv[3]
-        if not os.acces(SONG, os.F_OK): #comprobamos que existe song
+        if not os.access(SONG, os.F_OK): #comprobamos que existe song
+            print('Usage: python server.py IP port audio_file')
+            raise SystemExit
     except IndexError:
         print('Usage: python server.py IP port audio_file')
         raise SystemExit
@@ -66,5 +69,5 @@ if __name__ == "__main__":
         raise SystemExit
     # Creamos servidor de eco y escuchamos
     serv = SocketServer.UDPServer(("", int(PORT)), EchoHandler)
-    print "Lanzando servidor UDP de eco..."
+    print "Listening..."
     serv.serve_forever()
