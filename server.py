@@ -42,8 +42,9 @@ class EchoHandler(SocketServer.DatagramRequestHandler):
                     print "Enviando: SIP/2.0 200 OK"
                     self.wfile.write('SIP/2.0 200 OK\r\n')
                 elif METHOD == 'ACK':
-                    # aEjecutar es un string con lo que se ha de ejecutar en la shell
-                    aEjecutar = 'mp32rtp -i 127.0.0.1 -p 23032 < ' + SONG
+                    # aEjecutar es un string con lo
+                    # que se ha de ejecutar en la shell
+                    aEjecutar = './mp32rtp -i 127.0.0.1 -p 23032 < ' + SONG
                     print "Vamos a ejecutar", aEjecutar
                     os.system(aEjecutar)
                 elif METHOD == 'BYE':
@@ -53,12 +54,12 @@ class EchoHandler(SocketServer.DatagramRequestHandler):
 
 if __name__ == "__main__":
 
-
-    try: 
+    try:
         IP = sys.argv[1]
         PORT = sys.argv[2]
         SONG = sys.argv[3]
-        if not os.access(SONG, os.F_OK): #comprobamos que existe song
+        # comprobamos que existe song
+        if not os.access(SONG, os.F_OK):
             print('Usage: python server.py IP port audio_file')
             raise SystemExit
     except IndexError:
