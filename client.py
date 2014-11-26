@@ -37,13 +37,14 @@ if len(sys.argv) == 3:
         raise SystemExit
 
     print 'Recibido -- ', data
-    Mensajes = data.split(' ')
-    if len(Mensajes) == 7:
-        if Mensajes[1] == '100' and Mensajes[3] == '180':
-            if Mensajes[5] == '200' and Metodo == 'INVITE':
-                LINE = 'ACK sip:' + IP_Puerto[0] + ' SIP/2.0\r\n\r\n'
-                my_socket.send(LINE)
-
+    processed_data = data.split('\r\n\r\n')
+    #Modifico la comprobación del mensaje del servidor y añado la escucha habilitando un buffer
+    if processed_data[0] == "SIP/2.0 100 Trying" and\
+    processed_data[1] == "SIP/2.0 180 Ringing" and\
+    processed_data[2] == "SIP/2.0 200 OK":
+        LINE = 'ACK sip:' + IP_Puerto[0] + ' SIP/2.0\r\n\r\n'
+        my_socket.send(LINE)
+        data = my_socket.recv(1024)
     # Cerramos todo
     my_socket.close()
     print "Fin."
