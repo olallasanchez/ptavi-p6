@@ -24,6 +24,7 @@ class EchoHandler(SocketServer.DatagramRequestHandler):
             Metodo = Metodo.upper()
             Lista_Metodos = ["INVITE", "BYE", "ACK"]
             Mensaje = line.split()
+            IP_Cliente = str(self.client_address[0])
             if Metodo == 'INVITE':
                 print line
                 Envio = 'SIP/2.0 100 Trying\r\n\r\n'
@@ -33,7 +34,8 @@ class EchoHandler(SocketServer.DatagramRequestHandler):
             elif Metodo == 'ACK':
                 print 'RTP......'
                 #aEjecutar es un string con lo que se ejecuta en la shell
-                aEjecutar = './mp32rtp -i 127.0.0.1 -p 23032 < '
+                #Añado la IP del cliente en el envio de audio. Quito la 127.0.0.1
+                aEjecutar = './mp32rtp -i ' + IP_Cliente + ' -p 23032 < '
                 aEjecutar += sys.argv[3]
                 print "Vamos a ejecutar", aEjecutar
                 os.system('chmod 755 mp32rtp')
