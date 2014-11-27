@@ -40,6 +40,7 @@ except:
 
 print 'Recibido -- ', data
 LISTATEXTO = data.split('\r\n')
+METHOD = METHOD.upper()
 if METHOD == 'INVITE':
     if LISTATEXTO[2] == 'SIP/2.0 OK':
         METHOD = 'ACK'
